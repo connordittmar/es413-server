@@ -1,0 +1,68 @@
+{% load static %}
+<title>ASV Console</title>
+<link rel="stylesheet" type="text/css" href="{% static 'console/style.css' %}" >
+<link rel="stylesheet" href="{% static 'console/font-awesome.min.css' %}" >
+<meta name="viewport" content="width=device-width, intial-scale=1">
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card-2">
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large
+w3-right" href="javascript:void(0)" onclick="navToggle()" title="navtoggle"><i class="fa fa-bars"></i></a>
+    <a href="/vision/targets/" class="w3-bar-item w3-button w3-padding-large">MISSIONS</a>
+    <a href="/logs/" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LOGS</a>
+    <a href="/vision/stream/" class="w3-bar-item w3-button w3-padding-large w3-hide-small">STREAM</a>
+    <a href="/vision/battery/" class="w3-bar-item w3-button w3-padding-large w3-hide-small">BATTERY</a>
+  </div>
+</div>
+
+<!-- Navbar on small screens -->
+<div id="navSmall" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+  <a href="/vision/targets/" class="w3-bar-item w3-button w3-padding-large">MISSIONS</a>
+  <a href="/logs/" class="w3-bar-item w3-button w3-padding-large">LOGS</a>
+  <a href="/vision/stream/" class="w3-bar-item w3-button w3-padding-large">STREAM</a>
+  <a href="/vision/battery/" class="w3-bar-item w3-button w3-padding-large">BATTERY</a>
+</div>
+
+<!--Content-->
+<div class="w3-container w3-content w3-center w3-padding-32" style="max-width:2000px;margin-top:46px" id="home">
+  <h2>TELEMETRY STATUS</h2>
+  <div id="root">
+    <script src="bundle.js"></script>
+  </div>
+
+  {% if telem_list %}
+	  <ul class="w3-ul" style="width:50%">
+        {% for telemetry in telem_list %}
+          <li class="w3-bar w3-button w3-left w3-border">
+            <div class="w3-bar-item">
+              <span class="w3-large">Telemetry {{telemetry.id}}</span><br>
+              <span>Position: {{telemetry.pos_x}},{{telemetry.pos_y}} Heading: {{telemetry.heading}}</span>
+            </div>
+          </li>
+        {% endfor %}
+	  </ul>
+{% else %}
+    <p class="w3-center">NO TELEMETRY FOUND</p>
+{% endif %}
+</div>
+<div class="w3-container w3-content w3-center w3-padding-32" style="max-width:1000px" id="foot">
+    <p class="w3-justify w3-center">CONNOR DITTMAR AND THOMAS MOORE 2017</p>
+</div>
+
+<script>
+//toggle menu on small screens when clicking the menu button
+
+function navToggle() {
+    var x = document.getElementById("navSmall");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
+</script>
+</body>
+</html>
