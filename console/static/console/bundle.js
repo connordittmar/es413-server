@@ -18036,7 +18036,7 @@ var Updater = function (_React$Component) {
         date: new Date()
       });
       var _this = this;
-      this.serverRequest = _axios2.default.get('http://192.168.1.4:8000/hooks').then(function (result) {
+      this.serverRequest = _axios2.default.get('http://192.168.1.6:8000/hooks').then(function (result) {
         console.log(result);
         _this.setState({
           pos_x: result.data["0"].fields.pos_x,
