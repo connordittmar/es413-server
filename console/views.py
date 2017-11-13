@@ -11,7 +11,7 @@ def post_telemetry(request):
     if frommatlab == True:
         try:
             output = json.loads(request.POST.items()[0][0])
-			boatid = output['boatid']
+            boatid = output['boatid']
             pos_x = float(output['pos_x'])
             pos_y = float(output['pos_y'])
             heading = float(output['heading'])
