@@ -6,18 +6,18 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core import serializers
 from .models import Telemetry, Position, VehicleSettings, Config
 # Create your views here.
-
+frommatlab = True
 def post_telemetry(request):
-    config = get_object_or_404(Config)
-    if config.frommatlab == True:
+    if frommatlab == True:
         try:
             output = json.loads(request.POST.items()[0][0])
+			boatid = output['boatid']
             pos_x = float(output['pos_x'])
             pos_y = float(output['pos_y'])
             heading = float(output['heading'])
             timestamp = float(output['timestamp'])
             telemetry = Telemetry(pk=1,
-                pos_x=pos_x,pos_y=pos_y,heading=heading,timestamp=timestamp)
+                boatid=boatid,pos_x=pos_x,pos_y=pos_y,heading=heading,timestamp=timestamp)
             telemetry.save()
             return HttpResponse('posted.')
         except Exception as exc:
@@ -41,7 +41,7 @@ def post_telemetry(request):
 
 def get_telemetry(request):
     telemetry = Telemetry.objects.get(pk=1) #this returns the first telemetry object it finds
-    nmea_string = '$$%7.3f,%7.3f,%5.1f,%f!!' % (telemetry.pos_x,telemetry.pos_y,telemetry.heading,telemetry.timestamp)
+    nmea_string = '$,%s,%.3f,%7.3f,%7.3f,%5.1f,!' % (telemetry.boatid,telemetry.timestamp,telemetry.pos_x,telemetry.pos_y,telemetry.heading)
     return HttpResponse(nmea_string)
 
 

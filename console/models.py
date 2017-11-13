@@ -16,6 +16,7 @@ class Config(models.Model):
     frommatlab = models.BooleanField(default=True)
 
 class Telemetry(models.Model):
+	boatid = models.CharField(max_length = 10, blank = True)
     pos_x = models.FloatField(default = 0)
     pos_y = models.FloatField(default = 0)
     heading = models.FloatField(default = 0)
